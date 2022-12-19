@@ -16,10 +16,9 @@ const SearchUserFilters = ({ searchUserDispatch }) => {
   }, [debouncedSearchTerm, searchUserDispatch])
 
   return  (    
-    <Box w='95%'>
-      <Grid  templateColumns='.7fr 1.6fr 5fr' >
-          <Text  fontSize='xl' >ค้นหา</Text>
-          <Text  fontSize='xl' bgGradient='linear(to-r, teal.500, green.500)'  fontWeight='extrabold' bgClip='text'>พุทธสุภาษิต</Text>
+    <Box w='97%'>
+      <Grid  templateColumns='1.5fr 2fr' >
+          <Text  fontSize='4xl' bgGradient='linear(to-r, teal.500, green.500)'  fontWeight='extrabold' bgClip='text'>พุทธสุภาษิต</Text>
       </Grid>
       <Grid templateColumns='6fr 2fr' gap={2}  mt={2} mb={2}>
           <InputGroup >
