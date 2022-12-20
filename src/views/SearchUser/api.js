@@ -12,9 +12,6 @@ const api = {
       // handle error
       console.log(error);
     })
-    .finally(function () {
-      // always executed
-    });
       
     // id
     // buddhistProverbs
