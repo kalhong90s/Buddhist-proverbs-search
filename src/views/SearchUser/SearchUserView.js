@@ -36,7 +36,7 @@ function SearchUserView() {
   }, [])
 
   return (
-    <Flex direction="column" m={4} align="center"  maxWidth="600" >
+    <Flex direction="column" m={4} align="center"  maxWidth="lg" >
       <SearchUserFilters searchUserState={searchUserState} searchUserDispatch={searchUserDispatch} />
       <SearchUserList searchUserState={searchUserState} searchUserDispatch={searchUserDispatch} />
       <Divider mt={2} />

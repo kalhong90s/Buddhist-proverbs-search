@@ -20,7 +20,7 @@ const SearchUserFilters = ({ searchUserDispatch }) => {
     return  (    
     <Box w='97%'mt={2} mb={2}>
       <Grid  templateColumns='1.5fr 2fr' >
-          <Text  fontSize='4xl' bgGradient='linear(to-r, teal.500, green)'  fontWeight='extrabold' bgClip='text'>พุทธสุภาษิต</Text>
+          <Text  fontSize='4xl' bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text' fontWeight='extrabold' >พุทธสุภาษิต</Text>
       </Grid>
       <Grid templateColumns='1fr' gap={2}  mt={2} mb={2}>
           <InputGroup >

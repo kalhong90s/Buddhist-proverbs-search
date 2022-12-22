@@ -14,7 +14,6 @@ function BackdropDetail({ object }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [overlay, setOverlay] = useState(<OverlayOne />)
 
-  
 
     return (
       <>
@@ -24,21 +23,16 @@ function BackdropDetail({ object }) {
           }}>รายละเอียด...
           </Link>
 
-
-
-        <Modal scrollBehavior="inside" isCentered isOpen={isOpen} onClose={onClose}>
+        <Modal scrollBehavior="inside" isCentered isOpen={isOpen} onClose={onClose}  size="lg">
           {overlay}
           <ModalContent>
-            <ModalHeader> {object.firstName} <br/>  waefawefawoifahsdafs </ModalHeader>
-            <ModalHeader> {object.firstName} <br/>  waefawefawoifahsdafs </ModalHeader>
+            
+            <ModalHeader bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text' > {object.firstName} </ModalHeader>
+            <ModalHeader fontSize="md">{object.lastName}</ModalHeader>
 
             <ModalCloseButton />
             <ModalBody>
-              <Text> Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
-
-Sunt ad dolore quis aute consequat. Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam. Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis.
-
-Sunt ad dolore quis aute consequat. Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.</Text>
+              <Text>{object.detail}</Text>
             </ModalBody>
             <ModalFooter>
               <Button onClick={onClose}>Close</Button>

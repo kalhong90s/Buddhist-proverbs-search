@@ -53,19 +53,19 @@ function SearchUserList({ searchUserState, searchUserDispatch }) {
           searchUserState.pagination.data.map(user => {
             return (
               <ListItem key={`${user.firstName}${user.age}`}>
-                <Text>
-                  {user.firstName}   {user.lastName}
+                <Text fontSize="md" >
+                  {user.firstName}
                 </Text>
-                <Text>
-                  {user.firstName}   {user.lastName}
+                <Text fontSize="sm" >
+                  {user.lastName}
                 </Text>
                 <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>Age: </Text>
+                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
                   <Text fontSize="sm" opacity={0.8}>{user.age}</Text>
                 </Flex>
                 <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>Age: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{user.age}</Text>
+                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
+                  <Text fontSize="sm" opacity={0.8}>{user.email}</Text>
                 </Flex>
                 <Flex align="center">
                 <BackdropDetail  object={user}/>
