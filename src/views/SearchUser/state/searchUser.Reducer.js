@@ -43,10 +43,19 @@ const _beginSearchName = (state, action) => {
 
   const normalizedSearchTerm = action.value.toLowerCase();
   const usersFiltered = state.users.filter(u => u.normalizedName.includes(normalizedSearchTerm));
+  const treeFiltered = state.users.filter(u => { 
+    console.log("u",'Female'=== u.gender)
+    return 'Female'=== u.gender });
+    console.log("utreeFiltered",treeFiltered)
+
+
   const currentPage = 1
   const minPage = 1
   const maxPage = Math.ceil(usersFiltered.length / state.pagination.perPage)
   const dataToPageOne = _getUsersFromPage(currentPage, state.pagination.perPage, usersFiltered) 
+
+  const maxPageTree = Math.ceil(treeFiltered.length / state.pagination.perPage)
+  const dataToPageOneTree = _getUsersFromPage(currentPage, state.pagination.perPage, treeFiltered) 
 
   return {
     ...state,
@@ -61,7 +70,22 @@ const _beginSearchName = (state, action) => {
       minPage,
       maxPage,
       currentPage,
+    },    
+    paginationTree: {
+      ...state.pagination,
+      data: dataToPageOneTree,
+      minPage,
+      maxPage:maxPageTree,
+      currentPage,
+    },
+    paginationTo: {
+      ...state.pagination,
+      data: dataToPageOne,
+      minPage,
+      maxPage,
+      currentPage,
     }
+
   }
 }
 

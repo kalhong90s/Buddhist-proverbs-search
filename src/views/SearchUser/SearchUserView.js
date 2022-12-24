@@ -3,8 +3,8 @@ import { useReducer, useEffect} from 'react';
 import { Flex, Text, Link, Box, Divider } from '@chakra-ui/react';
 import { ExternalLinkIcon ,Search2Icon} from '@chakra-ui/icons'
 
-import SearchUserFilters from './components/SearchUserFilters';
-import SearchUserList from './components/SearchUserList';
+import SearchInputFilters from './components/SearchInputFilters';
+import SearchUserList from './components/SearchList';
 import { searchUserReducer, searchUserInitialState } from './state/searchUser.Reducer';
 import { loadUserData } from './state/searchUser.Actions';
 //import api from './api';
@@ -14,6 +14,9 @@ function SearchUserView() {
   const [searchUserState, searchUserDispatch] = useReducer(searchUserReducer, searchUserInitialState);
 
   useEffect(() => {
+    document.body.style.overflowY= "scroll"
+
+
     // api.loadUserData()
     //   .then(({ status, data }) => {
 
@@ -28,16 +31,16 @@ function SearchUserView() {
     //   .catch(error => searchUserDispatch(errorLoadingData(error)))      
 
       const data = require('./data.json')
-      console.log(data)
       const usersWithNormalizedName = data.users.map(user => ({ ...user, normalizedName: user.firstName.toLowerCase() }))
-        
+      console.log("usersWithNormalizedName:",  usersWithNormalizedName)
       searchUserDispatch(loadUserData(usersWithNormalizedName))
 
   }, [])
 
   return (
-    <Flex direction="column" m={4} align="center"  maxWidth="lg" >
-      <SearchUserFilters searchUserState={searchUserState} searchUserDispatch={searchUserDispatch} />
+    <Flex direction="column" m={2} align="center"  maxWidth="lg" >
+
+      <SearchInputFilters searchUserState={searchUserState} searchUserDispatch={searchUserDispatch} />
       <SearchUserList searchUserState={searchUserState} searchUserDispatch={searchUserDispatch} />
       <Divider mt={2} />
       <Box mt={10} mb={3}>

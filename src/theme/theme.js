@@ -5,6 +5,10 @@ const theme = extendTheme({
     heading: `'Sarabun', Sarabun`,
     body: `'Sarabun', Sarabun`,
   },
+  config : {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
+  }
 })
 
 export default theme

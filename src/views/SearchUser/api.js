@@ -13,10 +13,12 @@ const api = {
       console.log(error);
     })
       
-    // id
+    // id          
+    // titil
     // buddhistProverbs
     // meaning 
     // classification
+    // details
     // reference
     // level
 
