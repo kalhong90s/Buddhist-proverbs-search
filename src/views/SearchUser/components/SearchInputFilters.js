@@ -1,26 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Input, Text, Grid ,InputGroup,InputLeftElement,Box} from '@chakra-ui/react';
 import { Search2Icon} from '@chakra-ui/icons'
-import { beginSearchName } from '../state/searchUser.Actions';
+import { beginSearch } from '../state/search.Actions';
 import useDebounce from './useDebeounce'
 import ClassificationFilters from './ClassificationFilters';
 import DarkMode from './DarkMode';
 
-const SearchInputFilters = ({ searchUserDispatch }) => {
+const SearchInputFilters = ({ searchDataDispatch }) => {
 
   const [name, setName] = useState("");
 
   const debouncedSearchTerm = useDebounce(name, 250)
 
   useEffect(() => {
-    searchUserDispatch(beginSearchName(debouncedSearchTerm));
-  }, [debouncedSearchTerm, searchUserDispatch])
+    searchDataDispatch(beginSearch(debouncedSearchTerm));
+  }, [debouncedSearchTerm, searchDataDispatch])
 
 
 
     return  (    
     <Box w='97%'mt={2} mb={2} >
-      <Grid  templateColumns='1.5fr 2fr' >
+      <Grid  templateColumns='2fr 2fr' >
           <Text  fontSize='4xl' bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text' as='b'>พุทธสุภาษิต</Text>
           <Box  align='end'>
           <DarkMode/>

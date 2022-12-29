@@ -27,12 +27,12 @@ function BackdropDetail({ object }) {
           {overlay}
           <ModalContent>
             
-            <ModalHeader bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text' > {object.firstName} </ModalHeader>
-            <ModalHeader fontSize="md">{object.lastName}</ModalHeader>
+            <ModalHeader bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text' > {object.proverbs.toString()} </ModalHeader>
+            <ModalHeader fontSize="md">{object.meaning}</ModalHeader>
 
             <ModalCloseButton />
             <ModalBody>
-              <Text>{object.detail}</Text>
+              <Text>{object.details}</Text>
             </ModalBody>
             <ModalFooter>
               <Button onClick={onClose}>Close</Button>

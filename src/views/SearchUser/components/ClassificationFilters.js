@@ -20,7 +20,6 @@ const ClassificationFilters = () => {
           {classifications.map(classification=>{
             return(
               <MenuItem key={classification} fontSize="sm"  onClick={() => {
-                console.log(classification)                      
               }}>{classification}
               </MenuItem>                  
             )                  

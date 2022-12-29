@@ -4,14 +4,14 @@ import { Flex, Text, Link, Box, Divider } from '@chakra-ui/react';
 import { ExternalLinkIcon ,Search2Icon} from '@chakra-ui/icons'
 
 import SearchInputFilters from './components/SearchInputFilters';
-import SearchUserList from './components/SearchList';
-import { searchUserReducer, searchUserInitialState } from './state/searchUser.Reducer';
-import { loadUserData } from './state/searchUser.Actions';
+import SearchList from './components/SearchList';
+import { searchDataReducer, searchDataInitialState } from './state/searchData.Reducer';
+import { loadData } from './state/search.Actions';
 //import api from './api';
 
-function SearchUserView() {
+function SearchProverbView() {
 
-  const [searchUserState, searchUserDispatch] = useReducer(searchUserReducer, searchUserInitialState);
+  const [searchDataState, searchDataDispatch] = useReducer(searchDataReducer, searchDataInitialState);
 
   useEffect(() => {
     document.body.style.overflowY= "scroll"
@@ -30,18 +30,16 @@ function SearchUserView() {
     //   })
     //   .catch(error => searchUserDispatch(errorLoadingData(error)))      
 
-      const data = require('./data.json')
-      const usersWithNormalizedName = data.users.map(user => ({ ...user, normalizedName: user.firstName.toLowerCase() }))
-      console.log("usersWithNormalizedName:",  usersWithNormalizedName)
-      searchUserDispatch(loadUserData(usersWithNormalizedName))
+    const data = require('./datas.json')
+    searchDataDispatch(loadData(data))
 
   }, [])
 
   return (
     <Flex direction="column" m={2} align="center"  maxWidth="lg" >
 
-      <SearchInputFilters searchUserState={searchUserState} searchUserDispatch={searchUserDispatch} />
-      <SearchUserList searchUserState={searchUserState} searchUserDispatch={searchUserDispatch} />
+      <SearchInputFilters searchDataState={searchDataState} searchDataDispatch={searchDataDispatch} />
+      <SearchList searchDataState={searchDataState} searchDataDispatch={searchDataDispatch} />
       <Divider mt={2} />
       <Box mt={10} mb={3}>
         <Text fontSize="xl">What is this?</Text>
@@ -60,4 +58,4 @@ function SearchUserView() {
   );
 }
 
-export default SearchUserView;
+export default SearchProverbView;

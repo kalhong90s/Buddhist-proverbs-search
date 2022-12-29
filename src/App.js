@@ -1,20 +1,20 @@
 
-import SearchUserView from './views/SearchUser/SearchUserView';
+import SearchProverbView from './views/SearchUser/SearchProverbView';
 import { ChakraProvider, Flex } from "@chakra-ui/react"
-import '@fontsource/sarabun/300.css'
 import { ColorModeScript } from '@chakra-ui/react'
-
-
 import theme from './theme/theme'
+import '@fontsource/sarabun/300.css'
+
 
 
 function App() {
   return (
     <>
+    
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <ChakraProvider theme={theme}>
       <Flex justify="center">
-        <SearchUserView />
+        <SearchProverbView />
       </Flex>
     </ChakraProvider>
     </>

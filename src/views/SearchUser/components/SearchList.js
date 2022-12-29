@@ -1,29 +1,37 @@
 
 import { Text,Flex,List, Grid, Input, Button, Divider, ListItem,Tabs, TabList,Tab,TabPanels,TabPanel,Box} from '@chakra-ui/react';
-import { nextPage, lastPage, jumpToPage} from '../state/searchUser.Actions';
+import { nextPage, lastPage, jumpToPage} from '../state/search.Actions';
 import BackdropDetail from './BackdropDetail';
 
-function SearchList({ searchUserState, searchUserDispatch }) {
+function SearchList({ searchDataState, searchDataDispatch }) {
 
-  const forward = () => {
-    searchUserDispatch(nextPage())
+  const forward = (level) =>{
+    searchDataDispatch(nextPage(level))
   }
 
-  const backward = () => {
-    searchUserDispatch(lastPage())
+  const backward = (level) => {
+    searchDataDispatch(lastPage(level))
   }
 
-  const handleCurrentPageInput = e => {
+  const handleCurrentPageInput = (e,level) => {
     const pageNumber = e.target.value;
-
-    searchUserDispatch(jumpToPage(pageNumber))
+    searchDataDispatch(jumpToPage(pageNumber,level))
   }
 
-  const handleToLastPage = () => {
-    searchUserDispatch(jumpToPage(searchUserState.pagination.maxPage))
+  const handleToLastPage = (level) => {
+    let LastPage = searchDataState.pagination.maxPage
+
+    if(level==='tree'){
+      LastPage = searchDataState.paginationTree.maxPage
+    }else if(level ==='to'){
+      LastPage = searchDataState.paginationTo.maxPage
+    }
+    searchDataDispatch(jumpToPage(LastPage,level))
   }
 
-  console.log("searchUserState",searchUserState)
+
+
+
   return (
     <Box w='97%'  >
         <Tabs variant='enclosed'isFitted  >
@@ -39,25 +47,25 @@ function SearchList({ searchUserState, searchUserDispatch }) {
     <Grid templateRows="1fr" mt={2}>
       <List spacing={1}>
         {
-          searchUserState.pagination.data.map(user => {
+          searchDataState.pagination.data.map(data => {
             return (
-              <ListItem key={`${user.firstName}${user.age}`}>
+              <ListItem key={`${data.id}`}>
                 <Text fontSize="md" >
-                  {user.firstName}
+                  {data.proverbs.toString()}
                 </Text>
                 <Text fontSize="sm" >
-                  {user.lastName}
+                  {data.meaning}
                 </Text>
                 <Flex align="center">
                   <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{user.age}</Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
                 </Flex>
                 <Flex align="center">
                   <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{user.email}</Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
                 </Flex>
                 <Flex align="center">
-                <BackdropDetail  object={user}/>
+                <BackdropDetail  object={data}/>
 
                 </Flex>
                 <Divider />
@@ -66,29 +74,143 @@ function SearchList({ searchUserState, searchUserDispatch }) {
           })
         }
       </List>
-      <Grid templateColumns="1fr 3fr 2fr 1fr" gap={1} mt={3}>
-        <Button size="xs" colorScheme="teal" onClick={backward}>ย้อนกลับ</Button>
+      <Grid templateColumns="1fr 2fr 2fr 1fr" gap={1} mt={3}>
+        <Button size="xs" colorScheme="teal" onClick={() => backward('all')}>ย้อนกลับ</Button>
         <Flex align="center" justify="center">
           <Text fontSize="xs" opacity={0.8} mr={1}>หน้าปัจจุบัน: </Text>
           <Input 
-            maxWidth={50}
+            w='10'
             size="xs"
             type="number"
-            minvalue={searchUserState.pagination.minPage}
-            maxvalue={searchUserState.pagination.maxPage}
-            value={searchUserState.pagination.currentPage}
-            onChange={handleCurrentPageInput}
+            minvalue={searchDataState.pagination.minPage}
+            maxvalue={searchDataState.pagination.maxPage}
+            value={searchDataState.pagination.currentPage}
+            onChange={(event) => handleCurrentPageInput( event,'all') }
           />
         </Flex>
         <Flex align="center" justify="end">
           <Text fontSize="xs" opacity={0.8}>หน้าทั้งหมด:</Text>
           <Button 
-            onClick={handleToLastPage}
+            onClick={() => handleToLastPage('all')}
             size="xs"
-            minWidth="50" 
-          >{searchUserState.pagination.maxPage}</Button>
+            w='10'
+          >{searchDataState.pagination.maxPage}</Button>
         </Flex>
-        <Button size="xs" colorScheme="teal" onClick={forward}>หน้าถัดไป</Button>
+        <Button size="xs" colorScheme="teal" onClick={() => forward('all')}>หน้าถัดไป</Button>
+      </Grid>
+    </Grid>
+    </TabPanel>
+    {/* <TabPanel>
+    <Grid templateRows="1fr" mt={2}>
+      <List spacing={1}>
+        {
+          searchDataState.paginationTree.data.map(data => {
+            return (
+              <ListItem key={`${data.id}`}>
+                <Text fontSize="md" >
+                  {data.proverbs.toString()}
+                </Text>
+                <Text fontSize="sm" >
+                  {data.meaning}
+                </Text>
+                <Flex align="center">
+                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
+                </Flex>
+                <Flex align="center">
+                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
+                </Flex>
+                <Flex align="center">
+                <BackdropDetail  object={data}/>
+
+                </Flex>
+                <Divider />
+            </ListItem>
+            );
+          })
+        }
+      </List>
+      <Grid templateColumns="1fr 2fr 2fr 1fr" gap={1} mt={3}>
+        <Button size="xs" colorScheme="teal" onClick={() => backward('tree')}>ย้อนกลับ</Button>
+        <Flex align="center" justify="center">
+          <Text fontSize="xs" opacity={0.8} mr={1}>หน้าปัจจุบัน: </Text>
+          <Input 
+            w='10'
+            size="xs"
+            type="number"
+            minvalue={searchDataState.paginationTree.minPage}
+            maxvalue={searchDataState.paginationTree.maxPage}
+            value={searchDataState.paginationTree.currentPage}
+            onChange={(event) => handleCurrentPageInput( event,'tree')}
+          />
+        </Flex>
+        <Flex align="center" justify="end">
+          <Text fontSize="xs" opacity={0.8}>หน้าทั้งหมด:</Text>
+          <Button 
+            onClick={() => handleToLastPage('tree') }
+            size="xs"
+            w='10'
+          >{searchDataState.paginationTree.maxPage}</Button>
+        </Flex>
+        <Button size="xs" colorScheme="teal" onClick={() => forward('tree') }>หน้าถัดไป</Button>
+      </Grid>
+    </Grid>
+    </TabPanel> */}
+    <TabPanel>
+    <Grid templateRows="1fr" mt={2}>
+      <List spacing={1}>
+        {
+          searchDataState.paginationTree.data.map(data => {
+            return (
+              <ListItem key={`${data.id}`}>
+                <Text fontSize="md" >
+                  {data.proverbs.toString()}
+                </Text>
+                <Text fontSize="sm" >
+                  {data.meaning}
+                </Text>
+                <Flex align="center">
+                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
+                </Flex>
+                <Flex align="center">
+                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
+                </Flex>
+                <Flex align="center">
+                <BackdropDetail  object={data}/>
+
+                </Flex>
+                <Divider />
+            </ListItem>
+            );
+          })
+        }
+      </List>
+      <Grid templateColumns="1fr 2fr 2fr 1fr" gap={1} mt={3}>
+        <Button size="xs" colorScheme="teal" onClick={() => backward('tree')}>ย้อนกลับ</Button>
+        <Flex align="center" justify="center">
+          <Text fontSize="xs" opacity={0.8} mr={1}>หน้าปัจจุบัน: </Text>
+          <Input 
+            w='10'
+            size="xs"
+            type="number"
+            minvalue={searchDataState.paginationTree.minPage}
+            maxvalue={searchDataState.paginationTree.maxPage}
+            value={searchDataState.paginationTree.currentPage}
+            onChange={(event) => handleCurrentPageInput( event,'tree')}
+          />
+        </Flex>
+        <Flex align="center" justify="end">
+          <Text fontSize="xs" opacity={0.8}>หน้าทั้งหมด:</Text>
+          <Button 
+            onClick={() =>handleToLastPage('tree')}
+            size="xs"
+            w='10'
+          >{searchDataState.paginationTree.maxPage}</Button>
+        </Flex>
+        <Button size="xs" colorScheme="teal" onClick={() => forward('tree')}>หน้าถัดไป</Button>
       </Grid>
     </Grid>
     </TabPanel>
@@ -96,25 +218,25 @@ function SearchList({ searchUserState, searchUserDispatch }) {
     <Grid templateRows="1fr" mt={2}>
       <List spacing={1}>
         {
-          searchUserState.pagination.data.map(user => {
+          searchDataState.paginationTo.data.map(data => {
             return (
-              <ListItem key={`${user.firstName}${user.age}`}>
+              <ListItem key={`${data.id}`}>
                 <Text fontSize="md" >
-                  {user.firstName}
+                  {data.proverbs.toString()}
                 </Text>
                 <Text fontSize="sm" >
-                  {user.lastName}
+                  {data.meaning}
                 </Text>
                 <Flex align="center">
                   <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{user.age}</Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
                 </Flex>
                 <Flex align="center">
                   <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{user.email}</Text>
+                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
                 </Flex>
                 <Flex align="center">
-                <BackdropDetail  object={user}/>
+                <BackdropDetail  object={data}/>
 
                 </Flex>
                 <Divider />
@@ -123,86 +245,29 @@ function SearchList({ searchUserState, searchUserDispatch }) {
           })
         }
       </List>
-      <Grid templateColumns="1fr 3fr 2fr 1fr" gap={1} mt={3}>
-        <Button size="xs" colorScheme="teal" onClick={backward}>ย้อนกลับ</Button>
+      <Grid templateColumns="1fr 2fr 2fr 1fr" gap={1} mt={3}>
+        <Button size="xs" colorScheme="teal" onClick={() => backward('to')}>ย้อนกลับ</Button>
         <Flex align="center" justify="center">
           <Text fontSize="xs" opacity={0.8} mr={1}>หน้าปัจจุบัน: </Text>
           <Input 
-            maxWidth={50}
+            w='10'
             size="xs"
             type="number"
-            minvalue={searchUserState.pagination.minPage}
-            maxvalue={searchUserState.pagination.maxPage}
-            value={searchUserState.pagination.currentPage}
-            onChange={handleCurrentPageInput}
+            minvalue={searchDataState.paginationTo.minPage}
+            maxvalue={searchDataState.paginationTo.maxPage}
+            value={searchDataState.paginationTo.currentPage}
+            onChange={(event) => handleCurrentPageInput( event,'to')}
           />
         </Flex>
         <Flex align="center" justify="end">
           <Text fontSize="xs" opacity={0.8}>หน้าทั้งหมด:</Text>
           <Button 
-            onClick={handleToLastPage}
+            onClick={() =>handleToLastPage('to')}
             size="xs"
-            minWidth="50" 
-          >{searchUserState.pagination.maxPage}</Button>
+            w='10'
+          >{searchDataState.paginationTo.maxPage}</Button>
         </Flex>
-        <Button size="xs" colorScheme="teal" onClick={forward}>หน้าถัดไป</Button>
-      </Grid>
-    </Grid>
-    </TabPanel>
-    <TabPanel>
-    <Grid templateRows="1fr" mt={2}>
-      <List spacing={1}>
-        {
-          searchUserState.pagination.data.map(user => {
-            return (
-              <ListItem key={`${user.firstName}${user.age}`}>
-                <Text fontSize="md" >
-                  {user.firstName}
-                </Text>
-                <Text fontSize="sm" >
-                  {user.lastName}
-                </Text>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{user.age}</Text>
-                </Flex>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{user.email}</Text>
-                </Flex>
-                <Flex align="center">
-                <BackdropDetail  object={user}/>
-
-                </Flex>
-                <Divider />
-            </ListItem>
-            );
-          })
-        }
-      </List>
-      <Grid templateColumns="1fr 3fr 2fr 1fr" gap={1} mt={3}>
-        <Button size="xs" colorScheme="teal" onClick={backward}>ย้อนกลับ</Button>
-        <Flex align="center" justify="center">
-          <Text fontSize="xs" opacity={0.8} mr={1}>หน้าปัจจุบัน: </Text>
-          <Input 
-            maxWidth={50}
-            size="xs"
-            type="number"
-            minvalue={searchUserState.pagination.minPage}
-            maxvalue={searchUserState.pagination.maxPage}
-            value={searchUserState.pagination.currentPage}
-            onChange={handleCurrentPageInput}
-          />
-        </Flex>
-        <Flex align="center" justify="end">
-          <Text fontSize="xs" opacity={0.8}>หน้าทั้งหมด:</Text>
-          <Button 
-            onClick={handleToLastPage}
-            size="xs"
-            minWidth="50" 
-          >{searchUserState.pagination.maxPage}</Button>
-        </Flex>
-        <Button size="xs" colorScheme="teal" onClick={forward}>หน้าถัดไป</Button>
+        <Button size="xs" colorScheme="teal" onClick={() => forward('to')}>หน้าถัดไป</Button>
       </Grid>
     </Grid>
     </TabPanel>
