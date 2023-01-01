@@ -15,6 +15,13 @@ const loadData = (datas) => {
   }
 }
 
+const categoryFilter = (category) => {
+  return {
+    type: constants.CATEGORY_FILTER,
+    category: category
+  }
+}
+
 const errorLoadingData = (errors) => {
   return {
     type: constants.ERROR_LOADING_DATA,
@@ -47,6 +54,7 @@ const jumpToPage = (pageNumber,level) => {
 export  {
   beginSearch,
   loadData,
+  categoryFilter,
   errorLoadingData,
   nextPage,
   lastPage,

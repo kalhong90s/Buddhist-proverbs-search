@@ -1,8 +1,6 @@
 
 import { useReducer, useEffect} from 'react';
-import { Flex, Text, Link, Box, Divider } from '@chakra-ui/react';
-import { ExternalLinkIcon ,Search2Icon} from '@chakra-ui/icons'
-
+import { Flex, Text, Box, Divider } from '@chakra-ui/react';
 import SearchInputFilters from './components/SearchInputFilters';
 import SearchList from './components/SearchList';
 import { searchDataReducer, searchDataInitialState } from './state/searchData.Reducer';
@@ -36,7 +34,7 @@ function SearchProverbView() {
   }, [])
 
   return (
-    <Flex direction="column" m={2} align="center"  maxWidth="lg" >
+    <Flex direction="column" m={2} align="center"  w="lg" >
 
       <SearchInputFilters searchDataState={searchDataState} searchDataDispatch={searchDataDispatch} />
       <SearchList searchDataState={searchDataState} searchDataDispatch={searchDataDispatch} />
@@ -47,11 +45,9 @@ function SearchProverbView() {
           Project made to demonstrate my skills with React, useReducer, pagination and project organization.
         </Text>
         <Text fontSize="sm" mt={2}>
-          Current behavior is to call <Link href="https://random-persons.herokuapp.com/users" isExternal>an external API <ExternalLinkIcon mx="2px" /></Link> that returns 100k user objects and to paginate, search and display the results in a list manner. My solution include the usage of a debouncer hook to only filter the in-memory content at 250ms intervals.
+          Current behavior is to call an external API that returns proverb objects and to paginate, search and display the results in a list manner. My solution include the usage of a debouncer hook to only filter the in-memory content at 250ms intervals.
         </Text>
-        <Text fontSize="sm" mt={2}>
-          <Link href="https://github.com/pedr/people-search-100k" isExternal>Source code <Search2Icon mx="2px" /></Link>
-        </Text>
+ 
       </Box>
 
     </Flex>

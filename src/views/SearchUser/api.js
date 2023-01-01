@@ -3,7 +3,7 @@ import axios from 'axios';
 const address = 'https://dummyjson.com/users'
 
 const api = {
-  loadUserData: async () => {
+  loadData: async () => {
 
     return await axios.get(address).then(function (response) {
       // handle success

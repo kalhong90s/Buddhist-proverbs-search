@@ -30,8 +30,6 @@ function SearchList({ searchDataState, searchDataDispatch }) {
   }
 
 
-
-
   return (
     <Box w='97%'  >
         <Tabs variant='enclosed'isFitted  >
@@ -50,20 +48,25 @@ function SearchList({ searchDataState, searchDataDispatch }) {
           searchDataState.pagination.data.map(data => {
             return (
               <ListItem key={`${data.id}`}>
-                <Text fontSize="md" >
-                  {data.proverbs.toString()}
-                </Text>
-                <Text fontSize="sm" >
+                <Grid  templateColumns='repeat(2, auto)' >                
+                {data.proverbs.map( proverb => {                  
+                return (<Text fontSize="md" key={proverb}>{proverb}</Text>)
+                })
+                }
+              </Grid>
+                <Text fontSize="sm"  opacity={0.9}>
                   {data.meaning}
                 </Text>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
-                </Flex>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
-                </Flex>
+                <Grid templateColumns="1fr 1fr" gap={1}  >
+                  <Flex align='baseline' >
+                    <Text fontSize="sm"  opacity={0.6}>ที่มา: </Text>
+                    <Text fontSize="sm" opacity={0.6}>{data.reference}</Text>
+                  </Flex>
+                  <Flex align='baseline'>
+                    <Text fontSize="sm" opacity={0.6}>วรรค: </Text>
+                    <Text fontSize="sm" opacity={0.6}>{data.classification}</Text>
+                  </Flex>
+                </Grid>
                 <Flex align="center">
                 <BackdropDetail  object={data}/>
 
@@ -100,63 +103,6 @@ function SearchList({ searchDataState, searchDataDispatch }) {
       </Grid>
     </Grid>
     </TabPanel>
-    {/* <TabPanel>
-    <Grid templateRows="1fr" mt={2}>
-      <List spacing={1}>
-        {
-          searchDataState.paginationTree.data.map(data => {
-            return (
-              <ListItem key={`${data.id}`}>
-                <Text fontSize="md" >
-                  {data.proverbs.toString()}
-                </Text>
-                <Text fontSize="sm" >
-                  {data.meaning}
-                </Text>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
-                </Flex>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
-                </Flex>
-                <Flex align="center">
-                <BackdropDetail  object={data}/>
-
-                </Flex>
-                <Divider />
-            </ListItem>
-            );
-          })
-        }
-      </List>
-      <Grid templateColumns="1fr 2fr 2fr 1fr" gap={1} mt={3}>
-        <Button size="xs" colorScheme="teal" onClick={() => backward('tree')}>ย้อนกลับ</Button>
-        <Flex align="center" justify="center">
-          <Text fontSize="xs" opacity={0.8} mr={1}>หน้าปัจจุบัน: </Text>
-          <Input 
-            w='10'
-            size="xs"
-            type="number"
-            minvalue={searchDataState.paginationTree.minPage}
-            maxvalue={searchDataState.paginationTree.maxPage}
-            value={searchDataState.paginationTree.currentPage}
-            onChange={(event) => handleCurrentPageInput( event,'tree')}
-          />
-        </Flex>
-        <Flex align="center" justify="end">
-          <Text fontSize="xs" opacity={0.8}>หน้าทั้งหมด:</Text>
-          <Button 
-            onClick={() => handleToLastPage('tree') }
-            size="xs"
-            w='10'
-          >{searchDataState.paginationTree.maxPage}</Button>
-        </Flex>
-        <Button size="xs" colorScheme="teal" onClick={() => forward('tree') }>หน้าถัดไป</Button>
-      </Grid>
-    </Grid>
-    </TabPanel> */}
     <TabPanel>
     <Grid templateRows="1fr" mt={2}>
       <List spacing={1}>
@@ -164,23 +110,27 @@ function SearchList({ searchDataState, searchDataDispatch }) {
           searchDataState.paginationTree.data.map(data => {
             return (
               <ListItem key={`${data.id}`}>
-                <Text fontSize="md" >
-                  {data.proverbs.toString()}
-                </Text>
-                <Text fontSize="sm" >
+                <Grid  templateColumns='repeat(2, auto)' >                
+                {data.proverbs.map( proverb => {                  
+                return (<Text fontSize="md" key={proverb}>{proverb}</Text>)
+                })
+                }
+              </Grid>
+                <Text fontSize="sm"  opacity={0.9}>
                   {data.meaning}
                 </Text>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
-                </Flex>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
-                </Flex>
+                <Grid templateColumns="1fr 1fr" gap={1}  >
+                  <Flex align='baseline' >
+                    <Text fontSize="sm"  opacity={0.6}>ที่มา: </Text>
+                    <Text fontSize="sm" opacity={0.6}>{data.reference}</Text>
+                  </Flex>
+                  <Flex align='baseline'>
+                    <Text fontSize="sm" opacity={0.6}>วรรค: </Text>
+                    <Text fontSize="sm" opacity={0.6}>{data.classification}</Text>
+                  </Flex>
+                </Grid>
                 <Flex align="center">
                 <BackdropDetail  object={data}/>
-
                 </Flex>
                 <Divider />
             </ListItem>
@@ -221,20 +171,25 @@ function SearchList({ searchDataState, searchDataDispatch }) {
           searchDataState.paginationTo.data.map(data => {
             return (
               <ListItem key={`${data.id}`}>
-                <Text fontSize="md" >
-                  {data.proverbs.toString()}
-                </Text>
-                <Text fontSize="sm" >
+                <Grid  templateColumns='repeat(2, auto)' >                
+                {data.proverbs.map( proverb => {                  
+                return (<Text fontSize="md" key={proverb}>{proverb}</Text>)
+                })
+                }
+              </Grid>
+              <Text fontSize="sm"  opacity={0.9}>
                   {data.meaning}
                 </Text>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>วรรค: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.classification}</Text>
-                </Flex>
-                <Flex align="center">
-                  <Text fontSize="xs" m={1} opacity={0.5}>ที่มา: </Text>
-                  <Text fontSize="sm" opacity={0.8}>{data.reference}</Text>
-                </Flex>
+                <Grid templateColumns="1fr 1fr" gap={1}  >
+                  <Flex align='baseline' >
+                    <Text fontSize="sm"  opacity={0.6}>ที่มา: </Text>
+                    <Text fontSize="sm" opacity={0.6}>{data.reference}</Text>
+                  </Flex>
+                  <Flex align='baseline'>
+                    <Text fontSize="sm" opacity={0.6}>วรรค: </Text>
+                    <Text fontSize="sm" opacity={0.6}>{data.classification}</Text>
+                  </Flex>
+                </Grid>
                 <Flex align="center">
                 <BackdropDetail  object={data}/>
 

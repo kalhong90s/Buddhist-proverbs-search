@@ -1,4 +1,4 @@
-import { ModalOverlay, Button ,Modal,ModalContent,ModalHeader,ModalCloseButton,ModalBody,ModalFooter,Text,useDisclosure,Link} from '@chakra-ui/react';
+import { ModalOverlay, Button ,Modal,ModalContent,ModalCloseButton,ModalBody,ModalFooter,Text,useDisclosure,Link,Grid,Flex} from '@chakra-ui/react';
 import { useState} from 'react';
 
 
@@ -27,11 +27,25 @@ function BackdropDetail({ object }) {
           {overlay}
           <ModalContent>
             
-            <ModalHeader bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text' > {object.proverbs.toString()} </ModalHeader>
-            <ModalHeader fontSize="md">{object.meaning}</ModalHeader>
-
+            <Grid  templateColumns='repeat(2, auto)'  ml={6} mt={6} mr={6}>                
+                {object.proverbs.map( proverb => {                  
+                return (<Text bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text'  as='b'  fontSize='larger' key={proverb}>{proverb}</Text>)
+                })
+                }
+              </Grid>              
             <ModalCloseButton />
             <ModalBody>
+              <Text>{object.meaning}</Text>
+              <Grid templateColumns="1fr 1fr" gap={1}  >
+                  <Flex align='baseline' >
+                    <Text fontSize="sm"  opacity={0.8}>ที่มา: </Text>
+                    <Text fontSize="sm" opacity={0.8}>{object.reference}</Text>
+                  </Flex>
+                  <Flex align='baseline'>
+                    <Text fontSize="sm" opacity={0.8}>วรรค: </Text>
+                    <Text fontSize="sm" opacity={0.8}>{object.classification}</Text>
+                  </Flex>
+                </Grid>
               <Text>{object.details}</Text>
             </ModalBody>
             <ModalFooter>

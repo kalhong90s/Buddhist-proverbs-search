@@ -8,9 +8,9 @@ import DarkMode from './DarkMode';
 
 const SearchInputFilters = ({ searchDataDispatch }) => {
 
-  const [name, setName] = useState("");
+  const [word, setWord] = useState("");
 
-  const debouncedSearchTerm = useDebounce(name, 250)
+  const debouncedSearchTerm = useDebounce(word, 250)
 
   useEffect(() => {
     searchDataDispatch(beginSearch(debouncedSearchTerm));
@@ -27,10 +27,10 @@ const SearchInputFilters = ({ searchDataDispatch }) => {
           </Box>
       </Grid>
       <Grid templateColumns='1fr 7fr' gap={2} mt={2} mb={2}>
-          <ClassificationFilters/>
+          <ClassificationFilters searchDataDispatch={searchDataDispatch} />
           <InputGroup >
             <InputLeftElement pointerEvents='none' children={<Search2Icon color='gray.300' />} />
-            <Input type='text' placeholder='อตฺตา หิ ...' focusBorderColor='teal.300' value={name} onChange={e => setName(e.target.value)}/>
+            <Input type='text' placeholder='อตฺตา หิ ...' focusBorderColor='teal.300' value={word} onChange={e => setWord(e.target.value)}/>
           </InputGroup>
 
       </Grid>

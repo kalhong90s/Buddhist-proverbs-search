@@ -12,6 +12,9 @@ const searchDataReducer = (state, action) => {
     case constants.LOAD_DATA: 
       return _loadData(state, action);
 
+    case constants.CATEGORY_FILTER: 
+      return _categoryFilter(state, action);
+  
     case constants.NEXT_PAGE:    
       return _changePage(state, { value: parseInt(currentPage) + 1 ,level:action.level})
     
@@ -65,6 +68,62 @@ const _beginSearch = (state, action) => {
     searchFields: {
       ...state.searchFields,
       proverb: action.value
+    },
+    pagination: {
+      ...state.pagination,
+      data: dataToPageOne,
+      minPage,
+      maxPage,
+      currentPage,
+    },    
+    paginationTree: {
+      ...state.paginationTree,
+      data: dataToPageOneTree,
+      minPage,
+      maxPage:maxPageTree,
+      currentPage,
+    },
+    paginationTo: {
+      ...state.paginationTo,
+      data: dataToPageOneTo,
+      minPage,
+      maxPage:maxPageTo,
+      currentPage,
+    }
+
+  }
+}
+
+const _categoryFilter = (state, action) => {
+
+  const categorySearch = action.category;
+  let datasFiltered =state.datas.filter(d => d.proverbs.toString().includes(state.searchFields.proverb));
+  if('all'!== categorySearch){
+    datasFiltered = datasFiltered.filter(d => d.classification.includes(categorySearch));
+  }
+  const treeFiltered = datasFiltered.filter(d => d.level.includes('ตรี') );
+  const toFiltered = datasFiltered.filter(d => d.level.includes('โท') || d.level.includes('เอก'));
+
+
+  const currentPage = 1
+  const minPage = 1
+  const maxPage = Math.ceil(datasFiltered.length / state.pagination.perPage)
+  const dataToPageOne = _getDatasFromPage(currentPage, state.pagination.perPage, datasFiltered) 
+
+  const maxPageTree = Math.ceil(treeFiltered.length / state.paginationTree.perPage)
+  const dataToPageOneTree = _getDatasFromPage(currentPage, state.pagination.perPage, treeFiltered) 
+
+  const maxPageTo = Math.ceil(toFiltered.length / state.pagination.perPage)
+  const dataToPageOneTo = _getDatasFromPage(currentPage, state.paginationTo.perPage, toFiltered) 
+
+  return {
+    ...state,
+    datasFiltered: datasFiltered,
+    treeFiltered:treeFiltered,
+    toFiltered:toFiltered,
+    searchFields: {
+      ...state.searchFields,
+      filter: action.value
     },
     pagination: {
       ...state.pagination,
