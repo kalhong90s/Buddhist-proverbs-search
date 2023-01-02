@@ -44,7 +44,7 @@ const _errorLoadingData = (state) => {
 const _beginSearch = (state, action) => {
 
   const normalizedSearchTerm = action.value;
-  const datasFiltered = state.datas.filter(d => d.proverbs.toString().includes(normalizedSearchTerm));
+  const datasFiltered = state.datas.filter(d => d.proverb.toString().includes(normalizedSearchTerm));
   const treeFiltered = datasFiltered.filter(d => d.level.includes('ตรี') );
   const toFiltered = datasFiltered.filter(d => d.level.includes('โท') || d.level.includes('เอก'));
 
@@ -97,7 +97,7 @@ const _beginSearch = (state, action) => {
 const _categoryFilter = (state, action) => {
 
   const categorySearch = action.category;
-  let datasFiltered =state.datas.filter(d => d.proverbs.toString().includes(state.searchFields.proverb));
+  let datasFiltered =state.datas.filter(d => d.proverb.toString().includes(state.searchFields.proverb));
   if('all'!== categorySearch){
     datasFiltered = datasFiltered.filter(d => d.classification.includes(categorySearch));
   }

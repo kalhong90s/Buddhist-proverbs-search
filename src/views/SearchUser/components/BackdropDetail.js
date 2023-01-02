@@ -28,7 +28,7 @@ function BackdropDetail({ object }) {
           <ModalContent>
             
             <Grid  templateColumns='repeat(2, auto)'  ml={6} mt={6} mr={6}>                
-                {object.proverbs.map( proverb => {                  
+                {object.proverb.map( proverb => {                  
                 return (<Text color="teal.500"   fontSize='larger' key={proverb}>{proverb}</Text>)
                 })
                 }

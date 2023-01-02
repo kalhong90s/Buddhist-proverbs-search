@@ -49,7 +49,7 @@ function SearchList({ searchDataState, searchDataDispatch }) {
             return (
               <ListItem key={`${data.id}`}>
                 <Grid  templateColumns='repeat(2, auto)' >                
-                {data.proverbs.map( proverb => {                  
+                {data.proverb.map( proverb => {                  
                 return (<Text fontSize="md" key={proverb}>{proverb}</Text>)
                 })
                 }
@@ -111,7 +111,7 @@ function SearchList({ searchDataState, searchDataDispatch }) {
             return (
               <ListItem key={`${data.id}`}>
                 <Grid  templateColumns='repeat(2, auto)' >                
-                {data.proverbs.map( proverb => {                  
+                {data.proverb.map( proverb => {                  
                 return (<Text fontSize="md" key={proverb}>{proverb}</Text>)
                 })
                 }
@@ -172,7 +172,7 @@ function SearchList({ searchDataState, searchDataDispatch }) {
             return (
               <ListItem key={`${data.id}`}>
                 <Grid  templateColumns='repeat(2, auto)' >                
-                {data.proverbs.map( proverb => {                  
+                {data.proverb.map( proverb => {                  
                 return (<Text fontSize="md" key={proverb}>{proverb}</Text>)
                 })
                 }
