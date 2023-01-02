@@ -20,9 +20,10 @@ const SearchInputFilters = ({ searchDataDispatch }) => {
 
     return  (    
     <Box w='97%'mt={2} mb={2} >
-      <Grid  templateColumns='2fr 2fr' >
+      <Grid  templateColumns='auto 2fr auto' >
           <Text  fontSize='4xl' bgGradient='linear(to-r, teal.500, blue.600)' bgClip='text' as='b'>พุทธสุภาษิต</Text>
-          <Box  align='end'>
+          <Box />
+          <Box >
           <DarkMode/>
           </Box>
       </Grid>
