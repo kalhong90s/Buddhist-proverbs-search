@@ -12,8 +12,6 @@ function SearchProverbView() {
   const [searchDataState, searchDataDispatch] = useReducer(searchDataReducer, searchDataInitialState);
 
   useEffect(() => {
-    document.body.style.overflowY= "scroll"
-
 
     // api.loadUserData()
     //   .then(({ status, data }) => {
@@ -22,14 +20,13 @@ function SearchProverbView() {
     //       searchUserDispatch(errorLoadingData("Something wrong with the API"))
     //     }
 
-    //     const usersWithNormalizedName = data.users.map(user => ({ ...user, normalizedName: user.firstName.toLowerCase() }))
         
     //     searchUserDispatch(loadUserData(usersWithNormalizedName))
     //   })
     //   .catch(error => searchUserDispatch(errorLoadingData(error)))      
 
     const data = require('./datas.json')
-    searchDataDispatch(loadData(data))
+    searchDataDispatch(loadData(data.proverbs))
 
   }, [])
 

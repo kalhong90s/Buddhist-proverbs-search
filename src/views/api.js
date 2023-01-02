@@ -11,23 +11,9 @@ const api = {
     }).catch(function (error) {
       // handle error
       console.log(error);
+      return error;
     })
-      
-    // id          
-    // titil
-    // buddhistProverbs
-    // meaning 
-    // classification
-    // details
-    // reference
-    // level
 
-
-
-
-    // return fetch(address).then(r => {
-    //   console.log("r.json:"+r.json());
-    //   r.json()});
   }
 }
 
